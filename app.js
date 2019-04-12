@@ -2,6 +2,8 @@ const express = require('express');
 const app = express();
 const port = process.env.PORT || 3000;
 
+app.use(express.json())
+
 const courses = [
     {id : 1, course: 'Java'},
     {id: 2, course: 'node.js'},
@@ -24,6 +26,18 @@ app.get('/api/courses/:id', (req, res) => {
 
     res.send(course)
 })
+
+app.post('/api/courses', (req, res) => {
+    
+    const course = {
+        id : courses.length + 1,
+        name : req.body.name
+    }
+
+    courses.push(course);
+    res.send(course)
+})
+
 
 app.listen(port, () =>{
     console.log(`Server is running on ${port}`);
